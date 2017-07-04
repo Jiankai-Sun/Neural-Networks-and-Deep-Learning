@@ -4,7 +4,8 @@ Code for Nielsen book "Neural Networks and Deep Learning". The online book can b
 The [original code samples](https://github.com/mnielsen/neural-networks-and-deep-learning) is written for Python 2.6 or 2.7. Michal Daniel Dobrzanski has a repository for Python 3 [here](https://github.com/MichalDanielDobrzanski/DeepLearningPython35).
 
 ## Requirement:
-Python >= 3.6.1  
+Python >= 3.6.1  
+IPython >= 6.0.0
 ## Reference
 [1] Michael A. Nielsen, "Neural Networks and Deep Learning", Determination Press, 2015 
 
