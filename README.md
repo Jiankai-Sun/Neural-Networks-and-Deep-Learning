@@ -12,7 +12,7 @@ IPython >= 6.0.0
 
 
 2. Untested    
-  fig/more_data.py    
+  fig/more_data.py: Probably not correct. 
   fig/multiple_eta.py    
   fig/overfitting.py    
   fig/weight_initialization.py    
