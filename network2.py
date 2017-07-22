@@ -18,23 +18,27 @@ features.
 import json
 import random
 import sys
+
 # Third-party libraries
 import numpy as np
 
 # Define the quadratic and cross-entropy cost functions
 class QuadraticCost(object):
+
     @staticmethod
     def fn(a,y):
         """
         Return the cost associated with an output "a" and desired output "y".
         """
         return 0.5 * np.linalg.norm(a-y)**2
+
     @staticmethod
     def delta(z,a,y):
         """Return the error delta from the output layer."""
         return (a-y) * sigmoid_prime(z)
 
 class CrossEntropyCost(object):
+
     @staticmethod
     def fn(a,y):
         """
@@ -46,6 +50,7 @@ class CrossEntropyCost(object):
         to the correct value (0.0).
         """
         return np.sum(np.nan_to_num(-y * np.log(a)-(1-y)*np.log(1-a)))
+
     @staticmethod
     def delta(z,a,y):
         """
@@ -107,12 +112,13 @@ class Network(object):
         instead.
         """
         self.biases = [np.random.randn(y,1) for y in self.sizes[1:]]
-        self.weights = [np.random.randn(y,x) for x,y in zip(self.sizes[:-1], self.sizes[1:])]
+        self.weights = [np.random.randn(y,x)
+                        for x,y in zip(self.sizes[:-1], self.sizes[1:])]
 
     def feedforward(self, a):
         """Return the output of the network if "a" is input."""
         for b,w in zip(self.biases, self.weights):
-            a = sigmoid(np.dot(w,a)+b)
+            a = sigmoid(np.dot(w, a)+b)
         return a
 
     def SGD(self, training_data, epochs, mini_batch_size, eta,
@@ -122,8 +128,7 @@ class Network(object):
             monitor_evaluation_accuracy = False,
             monitor_training_cost = False,
             monitor_training_accuracy = False,
-            early_stopping_n = 0
-            ):
+            early_stopping_n = 0):
         """Train the neural network using mini-batch stochastic gradient
         descent.  The "training_data" is a list of tuples "(x, y)"
         representing the training inputs and the desired outputs.  The
@@ -142,6 +147,7 @@ class Network(object):
         evaluation data at the end of each epoch. Note that the lists
         are empty if the corresponding flag is not set.
         """
+
         # early stopping functionality:
         best_accuracy = 1
 
@@ -163,8 +169,7 @@ class Network(object):
             random.shuffle(training_data)
             mini_batches = [
                 training_data[k:k+mini_batch_size]
-                for k in range(0, n, mini_batch_size)
-            ]
+                for k in range(0, n, mini_batch_size)]
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch, eta, lmbda, len(training_data))
 
@@ -191,15 +196,15 @@ class Network(object):
                 if accuracy > best_accuracy:
                     best_accuracy = accuracy
                     no_accuracy_change = 0
-                    #print("Early-stopping: Best so far {}".format(best_accuracy))
+                    print("Early-stopping: Best so far {}".format(best_accuracy))
                 else:
                     no_accuracy_change += 1
+
                 if(no_accuracy_change == early_stopping_n):
-                    #print("Early-stopping: No accuracy change in last epochs: {}".format(early_stopping_n))
+                    print("Early-stopping: No accuracy change in last epochs: {}".format(early_stopping_n))
                     return evaluation_cost, evaluation_accuracy, training_cost, training_accuracy
 
-
-            return evaluation_cost, evaluation_accuracy, training_cost, training_accuracy
+        return evaluation_cost, evaluation_accuracy, training_cost, training_accuracy
 
     def update_mini_batch(self, mini_batch, eta, lmbda, n):
         """Update the network's weights and biases by applying gradient
