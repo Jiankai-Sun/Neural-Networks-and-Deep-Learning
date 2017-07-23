@@ -8,14 +8,15 @@ Python >= 3.6.1  
 IPython >= 6.0.0
 
 ## Note:
-1. network2.py probably dosn't work currectly. For more details, check test2.ipynb.
+1. Untested    
 
+   fig/weight_initialization.py 
 
-2. Untested    
-  fig/more_data.py: Probably not correct.       
-  fig/multiple_eta.py    
-  fig/overfitting.py    
-  fig/weight_initialization.py    
+   src/network3.py
+
+   src/test3.ipynb
+
+   src/expand_mnist.py: no responding 
 
 ## Reference
 [1] Michael A. Nielsen, "Neural Networks and Deep Learning", Determination Press, 2015 
