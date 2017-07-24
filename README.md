@@ -5,18 +5,20 @@ The [original code samples](https://github.com/mnielsen/neural-networks-and-deep
 
 ## Requirement:
 Python >= 3.6.1  
+
 IPython >= 6.0.0
+
+Theano >= 0.9.0     
 
 ## Note:
 1. Untested    
 
-   fig/weight_initialization.py 
+   fig/weight_initialization.py: TypeError: main() missing 3 required positional arguments: 'filename', 'n', and 'eta' 
 
    src/network3.py
 
    src/test3.ipynb
 
-   src/expand_mnist.py: no responding 
 
 ## Reference
 [1] Michael A. Nielsen, "Neural Networks and Deep Learning", Determination Press, 2015 

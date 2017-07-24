@@ -38,7 +38,7 @@ import theano.tensor as T
 from theano.tensor.nnet import conv
 from theano.tensor.nnet import softmax
 from theano.tensor import shared_randomstreams
-from theano.tensor.signal import downsample
+from theano.tensor.signal import pool
 
 # Activation functions for neurons
 def linear(z): return z
@@ -47,7 +47,7 @@ from theano.tensor.nnet import sigmoid
 from theano.tensor import tanh
 
 # Constants
-GPU = False #True
+GPU = True #False #True
 if GPU:
     print("Trying to run under a GPU. If this is not desired, then modify "+\
             "network3.py\nto set the GPU flag to False.")
@@ -58,9 +58,9 @@ else:
     print("Running with a CPU. If this is not desired, then modify "+\
             "network3.py\nto set the GPU flag to True.")
 # Load the MNIST data
-def load_data_shared(filename="mnist.pkl.gz"):
+def load_data_shared(filename="../data/mnist.pkl.gz"):
     f = gzip.open(filename,'rb')
-    training_data, validation_data, test_data = pickle.load(f, encoding = "latin1")
+    training_data, validation_data, test_data = pickle.load(f)# encoding = "latin1"
     f.close()
     def shared(data):
         """
@@ -220,7 +220,7 @@ class ConvPoolLayer(object):
             input = self.inpt, filters = self.w, filter_shape = self.filter_shape,
             image_shape = self.image_shape
         )
-        pooled_out = downsample.max_pool_2d(
+        pooled_out = pool.pool_2d(
             input = conv_out, ds = self.poolsize, ignore_border=True
         )
         self.output=self.activation_fn(
@@ -258,7 +258,7 @@ class FullyConnectedLayer(object):
         self.inpt_dropout = dropout_layer(inpt_dropout.reshape((mini_batch_size, self.n_in)), self.p_dropout)
         self.output_dropout = self.activation_fn(T.dot(self.inpt_dropout, self.w)+self.b)
 
-class softmaxLayer(object):
+class SoftmaxLayer(object):
     def __init__(self, n_in, n_out, p_dropout=0.0):
         self.n_in = n_in
         self.n_out = n_out
